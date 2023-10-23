@@ -1,0 +1,113 @@
+= PlayerStats - Documento de Especificação
+
+== Visão Geral
+
+O aplicativo *PlayerStats* é uma plataforma abrangente para os fãs de esportes acompanharem estatísticas de jogadores em várias equipes e ligas. O aplicativo permite aos usuários explorar o desempenho de jogadores, acessar informações detalhadas e receber atualizações em tempo real. Ele é projetado para fornecer uma experiência rica e envolvente para os amantes de esportes.
+
+== Funcionalidades
+
+=== Pesquisa de Jogadores
+
+==== Descrição
+Os usuários podem pesquisar jogadores por nome ou nome da equipe.
+
+==== Chamadas de API
+* Pesquisa de jogadores por nome: link:https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=Danny%20Welbeck[]
+* Pesquisa de jogadores por nome da equipe (API paga): link:https://www.thesportsdb.com/api/v1/json/{APIKEY}/searchplayers.php?t={TeamName}&p={Playername}[]
+
+=== Perfil do Jogador
+
+==== Descrição
+Os usuários podem visualizar perfis detalhados de jogadores, incluindo informações pessoais, estatísticas atuais e equipes anteriores e gerar um pdf com todas as infromaçes de jogador e baixar em pdf.
+
+==== Chamadas de API
+* Perfil do jogador: link:https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id=34145937[]
+
+=== Estatísticas de Temporada Atual
+
+==== Descrição
+Os usuários podem ver as estatísticas atuais de um jogador na temporada em curso.
+``
+==== Chamadas de API
+* Estatísticas de temporada atual (API paga): link:https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=4328&s=2020*2021[]
+
+=== Milestones na Carreira
+
+==== Descrição
+Os usuários podem acessar informações sobre marcos na carreira do jogador.
+
+==== Chamadas de API
+* Milestones na carreira:
+  link:https://www.thesportsdb.com/api/v1/json/3/lookupmilestones.php?id=34161397[]
+
+=== Honrarias e Prêmios
+
+==== Descrição
+Os usuários podem ver as honrarias e prêmios conquistados pelo jogador.
+
+==== Chamadas de API
+* Honrarias e prêmios (API paga):
+  link:https://www.thesportsdb.com/api/v1/json/3/lookuphonours.php?id=34147178[]
+
+=== Contratos Atuais
+
+==== Descrição
+Os usuários podem visualizar os detalhes do contrato atual do jogador.
+
+==== Chamadas de API
+* Contratos atuais (API paga):
+  link:https://www.thesportsdb.com/api/v1/json/3/lookupcontracts.php?id=34147178[]
+
+=== Vídeos de Destaques Personalizados (API paga)
+
+==== Descrição
+Os usuários podem assistir a destaques personalizados dos jogadores.
+
+==== Chamadas de API
+* Vídeos de destaques personalizados:
+  link:https://www.thesportsdb.com/api/v1/json/{APIKEY}/eventshighlights.php[]
+
+=== Análises em Tempo Real (API paga)
+
+==== Descrição
+Os usuários podem acessar análises em tempo real durante partidas.
+
+==== Chamadas de API
+* Análises em tempo real (API paga):
+  Integração de estatísticas detalhadas durante partidas.
+
+=== Jogos Interativos (API paga)
+
+==== Descrição
+Os usuários podem competir em jogos interativos relacionados a jogadores e estatísticas.
+
+==== Chamadas de API
+* Dados de mercado e transferências (API paga):
+  Informações sobre valor de mercado e transferências.
+
+=== Comentários de Especialistas (API paga)
+
+==== Descrição
+Os usuários podem receber análises de especialistas esportivos em tempo real.
+
+==== Chamadas de API
+* Comentários de especialistas (API paga):
+  Integração de análises de especialistas.
+
+=== Notificações Personalizadas Premium (API paga)
+
+==== Descrição
+Os usuários podem receber notificações em tempo real sobre eventos específicos relacionados a jogadores favoritos.
+
+==== Chamadas de API
+* Notificações personalizadas (API paga):
+  Notificações premium para eventos em tempo real.
+
+=== Redes Sociais Integradas
+
+==== Descrição
+Os usuários podem compartilhar estatísticas, destaques e informações sobre jogadores nas redes sociais diretamente do aplicativo.
+
+== Conclusão
+
+O aplicativo *PlayerStats* oferece uma experiência completa para os fãs de esportes, permitindo que eles acompanhem o desempenho de jogadores, explorem informações detalhadas e desfrutem de funcionalidades adicionais premium. O aplicativo é uma ferramenta valiosa para os amantes de esportes que desejam se manter atualizados e envolvidos no mundo esportivo.
