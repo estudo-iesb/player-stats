@@ -1,0 +1,8 @@
+link:https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=Danny%20Welbeck[]
+link:https://www.thesportsdb.com/api/v1/json/{APIKEY}/searchplayers.php?t={TeamName}&p={Playername}[]
+link:https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id=34145937[]
+link:https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=4328&s=2020*2021[]
+link:https://www.thesportsdb.com/api/v1/json/3/lookupmilestones.php?id=34161397[]
+link:https://www.thesportsdb.com/api/v1/json/3/lookuphonours.php?id=34147178[]
+link:https://www.thesportsdb.com/api/v1/json/3/lookupcontracts.php?id=34147178[]
+link:https://www.thesportsdb.com/api/v1/json/{APIKEY}/eventshighlights.php[]
