@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Card, IconButton, TextInput } from 'react-native-paper'
+import { Avatar, Card, IconButton, Searchbar} from 'react-native-paper'
 import apiTheSports from '../../services/apiTheSports'
 import { ScrollView } from 'react-native'
 
@@ -24,13 +24,11 @@ const JogadorSearch = ({ navigation }) => {
   return (
     <ScrollView>
 
-      <TextInput
-        label="Pesquisar Jogadores"
-        value={searchText}
+      <Searchbar
+        placeholder="Pesquisar Jogadores"
         onChangeText={(text) => setSearchText(text)}
-        right={<TextInput.Icon icon="text-search" />}
+        value={searchText}
       />
-
 
       {jogadores.map(item => (
         <Card key={item.idPlayer}>
