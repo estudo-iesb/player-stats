@@ -15,7 +15,7 @@ const JogadorSearch = ({ navigation }) => {
         const jogadoresDeFutebol = response.data.player.filter((jogador) => jogador.strSport === "Soccer");
         setJogadores(jogadoresDeFutebol);
     } catch (error) {
-        console.error('Erro ao buscar os dados:', error);
+        console.error('Erro ao buscar os dadoss:', error);
     }
 }
 
