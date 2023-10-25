@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 // Importe pages for menu
 import NewNoticeStack from './src/screens/noticia/NewNoticeStack';
 import JogadorStack from './src/screens/jogador/JogadorStack';
+import LigaStack from './src/screens/Ligas/LigaStack';
 
 
 
@@ -19,7 +20,7 @@ export default function App() {
         <NavigationContainer>
           <Tab.Navigator>
             <Tab.Screen
-              name="Notices" 
+              name="Notices"
               component={NewNoticeStack}
               options={{
                 tabBarIcon: () => (
@@ -28,11 +29,21 @@ export default function App() {
               }}
             />
             <Tab.Screen
-              name="Jogador" 
+              name="Jogador"
               component={JogadorStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="account-search" size={26} />
+                ),
+              }}
+            />
+
+            <Tab.Screen
+              name="Ligas"
+              component={LigaStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="trophy" size={26} />
                 ),
               }}
             />
