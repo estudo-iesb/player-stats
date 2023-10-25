@@ -10,12 +10,14 @@ const JogadorSearch = ({ navigation }) => {
 
   const fetchJogadores = async () => {
     try {
-      const response = await apiTheSports.get(`/3/searchplayers.php?p=${searchText}`)
-      setJogadores(response.data.player)
+        const response = await apiTheSports.get(`/3/searchplayers.php?p=${searchText}`);
+        // Filtra os jogadores para incluir apenas aqueles com strSport igual a "Soccer" (Futebol)
+        const jogadoresDeFutebol = response.data.player.filter((jogador) => jogador.strSport === "Soccer");
+        setJogadores(jogadoresDeFutebol);
     } catch (error) {
-      console.error('Error fetching data:', error)
+        console.error('Erro ao buscar os dados:', error);
     }
-  }
+}
 
   useEffect(() => {
     fetchJogadores()
