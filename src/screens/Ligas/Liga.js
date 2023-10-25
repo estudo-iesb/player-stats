@@ -6,11 +6,14 @@ import { ScrollView } from 'react-native'
 const Liga = ({ navigation }) => {
     const [liga, setLiga] = useState([])
 
+   
     useEffect(() => {
-        apiTheSports.get(`/3/all_leagues.php`).then(resultado => {
-            setLiga(resultado.data.leagues)
-        })
-    }, [])
+        apiTheSports.get(`/3/all_leagues.php`).then((resultado) => {
+            // Filtra as ligas para incluir apenas aquelas com strSport igual a "Soccer" (Futebol)
+            const ligasDeFutebol = resultado.data.leagues.filter((liga) => liga.strSport === "Soccer");
+            setLiga(ligasDeFutebol);
+        });
+    }, []);
 
     return (
         <ScrollView>
