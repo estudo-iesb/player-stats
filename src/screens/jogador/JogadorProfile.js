@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { Avatar, Text } from 'react-native-paper'
+import { Linking, ScrollView, StyleSheet, View } from 'react-native'
+import { Avatar, Icon, IconButton, MD3Colors, Text } from 'react-native-paper'
 import apiTheSports from '../../services/apiTheSports'
+import ItemCarousel from '../../components/ItemCarousel';
+import Carousel from 'react-native-snap-carousel-v4';
+import formatData from '../../utils/FormatData';
+import formatURL from '../../utils/FormatURL';
+
 
 const JogadorProfile = ({ route }) => {
 
     const [jogador, setJogador] = useState({})
+    const [marco, setMarco] = useState([])
 
     useEffect(() => {
         const id = route.params.id
@@ -15,18 +21,65 @@ const JogadorProfile = ({ route }) => {
         })
     }, [])
 
+
+    useEffect(() => {
+        const id = route.params.id
+
+        apiTheSports.get(`/3/lookupmilestones.php?id=${id}`).then(resultado => {
+            setMarco(resultado.data.milestones)
+        })
+    }, [])
+
+
+
+
+
     return (
         <ScrollView>
             <View style={styles.header}>
-                
+
             </View>
             <Avatar.Image
                 style={styles.avatar}
                 size={190}
                 source={{ uri: jogador.strThumb }}
             />
+
             <Text style={styles.title}>{jogador.strPlayer}</Text>
-            <View style={styles.infoContainer}></View>
+
+            <View style={styles.iconRede}>
+                <IconButton
+                    icon="twitter"
+                    iconColor="#1DA1F2"
+                    size={44}
+                    onPress={() => Linking.openURL(formatURL(jogador.strTwitter))} // Abre o perfil do jogador no Twitter
+                />
+                <IconButton
+                    icon="instagram"
+                    iconColor="#E4405F"
+                    size={44}
+                    onPress={() => Linking.openURL(formatURL(jogador.strInstagram))} // Abre o perfil do jogador no Instagram
+                />
+                <IconButton
+                    icon="facebook"
+                    iconColor="#1877F2"
+                    size={44}
+                    onPress={() => Linking.openURL(formatURL(jogador.strFacebook))} // Abre o perfil do jogador no Facebook
+                />
+            </View>
+
+            <View style={styles.infoContainer}>
+                <Text style={styles.titleText} variant="headlineMedium">Marcos de carreira</Text>
+                <Carousel
+                    layout={'default'}
+                    data={marco}
+                    renderItem={ItemCarousel}
+                    sliderWidth={380}
+                    itemWidth={310}
+                />
+
+            </View>
+
         </ScrollView>
     );
 };
@@ -35,7 +88,7 @@ const JogadorProfile = ({ route }) => {
 const styles = StyleSheet.create({
     header: {
         backgroundColor: '#5DB075',
-        height: 200,
+        height: 150,
         marginBottom: 30,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
@@ -49,7 +102,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         alignSelf: 'center',
         position: 'absolute',
-        top: 100,
+        top: 50
     },
     title: {
         fontSize: 30,
@@ -59,7 +112,23 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     infoContainer: {
-        padding: 25,
+        padding: 5,
+        marginEnd: 10
+    },
+    titleText: {
+        color: "#8b8c8b",
+        fontWeight: 'bold',
+        textAlign: "center",
+        margin: 10
+
+    },
+    iconRede: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        justifyContent: 'space-around',
+        paddingHorizontal: 50
+
     }
 });
 
