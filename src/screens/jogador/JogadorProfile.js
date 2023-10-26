@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Linking, ScrollView, StyleSheet, View } from 'react-native'
-import { Avatar, Icon, IconButton, MD3Colors, Text } from 'react-native-paper'
+import { Avatar, IconButton, Text } from 'react-native-paper'
 import apiTheSports from '../../services/apiTheSports'
 import ItemCarousel from '../../components/ItemCarousel';
 import Carousel from 'react-native-snap-carousel-v4';
-import formatData from '../../utils/FormatData';
 import formatURL from '../../utils/FormatURL';
 
 
@@ -125,7 +124,6 @@ const styles = StyleSheet.create({
     iconRede: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
         justifyContent: 'space-around',
         paddingHorizontal: 50
 

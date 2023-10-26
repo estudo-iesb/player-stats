@@ -1,8 +1,11 @@
 import React from 'react'
+import { Text } from 'react-native-paper'
 
 const LigaEquipes = () => {
   return (
-    <div>LigaEquipes</div>
+    <Text>
+      LigaEquipes
+    </Text > 
   )
 }
 
