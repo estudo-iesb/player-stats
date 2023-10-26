@@ -1,66 +1,50 @@
-import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import { FlatList, ScrollView } from 'react-native'
-import { Searchbar, Text } from 'react-native-paper'
-import apiTheSports from '../../services/apiTheSports'
-import ItemPais from '../../components/ItemPais'
+import React, { useState, useEffect } from 'react';
+import { FlatList } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import apiTheSports from '../../services/apiTheSports';
+import ItemPais from '../../components/ItemPais';
 
 const Pais = ({ navigation }) => {
+    const [paises, setPaises] = useState([]);
+    const [searchText, setSearchText] = useState('');
 
-    // const [paises, setPaises] = useState([])
-    // const [filtro, setFiltro] = useState('')
-
-    // const fetchPaises = async () => {
-    //     try {
-            // const response = await apiTheSports.get(`/3/all_countries.php?p=${filtro}`);
-    //         // // Filtra os jogadores para incluir apenas aqueles com strSport igual a "Soccer" (Futebol)
-    //         const paisesFutebol = response.data.countries
-    //         setPaises(paisesFutebol);
-    //     } catch (error) {
-    //         console.error('Erro ao buscar os dados:', error);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     fetchPaises()
-    // }, [filtro])
-
-    const [jogadores, setJogadores] = useState([])
-    const [searchText, setSearchText] = useState('')
-
-    const fetchJogadores = async () => {
+    const fetchPaises = async () => {
         try {
-            const response = await apiTheSports.get(`/3/all_countries.php?p=${searchText}`);
-            // Filtra os jogadores para incluir apenas aqueles com strSport igual a "Soccer" (Futebol)
-            const jogadoresDeFutebol = response.data.countries;
-            setJogadores(jogadoresDeFutebol);
+            const response = await apiTheSports.get('/3/all_countries.php');
+            const allCountries = response.data.countries;
+
+            // Filtra os países com base no searchText
+            const filteredCountries = allCountries.filter((country) => {
+                // Transforma o nome do país e o termo de pesquisa em letras minúsculas para evitar problemas de maiúsculas/minúsculas
+                const countryName = country.name_en.toLowerCase();
+                const searchTerm = searchText.toLowerCase();
+                return countryName.includes(searchTerm);
+            });
+
+            setPaises(filteredCountries);
         } catch (error) {
             console.error('Erro ao buscar os dados:', error);
         }
-    }
+    };
 
     useEffect(() => {
-        fetchJogadores()
-    }, [searchText])
+        fetchPaises();
+    }, [searchText]);
 
     return (
         <>
             <Searchbar
-                placeholder="Pesquisar Jogadores"
+                placeholder="Pesquisar Países"
                 onChangeText={(text) => setSearchText(text)}
                 value={searchText}
             />
             <FlatList
-                data={jogadores}
+                data={paises}
                 renderItem={({ item }) => <ItemPais item={item} navigation={navigation} />}
-                keyExtractor={item => item.name_en}
+                keyExtractor={(item) => item.name_en}
             />
-
-
-
         </>
-    )
-}
+    );
+};
 
-export default Pais
+export default Pais;
