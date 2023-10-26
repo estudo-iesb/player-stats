@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import NewNoticeStack from './src/screens/noticia/NewNoticeStack';
 import JogadorStack from './src/screens/jogador/JogadorStack';
 import LigaStack from './src/screens/Ligas/LigaStack';
+import PaisStack from './src/screens/Paises/PaisStack';
 
 
 
@@ -41,6 +42,15 @@ export default function App() {
             <Tab.Screen
               name="Ligas"
               component={LigaStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="trophy" size={26} />
+                ),
+              }}
+            />
+             <Tab.Screen
+              name="Países"
+              component={PaisStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="trophy" size={26} />
