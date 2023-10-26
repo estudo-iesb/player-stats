@@ -5,8 +5,8 @@ const ItemLigas = ({ item, navigation }) => {
     return (
          <Card style={{ margin: 10, borderWidth: 1 }} key={item.idLeague}>
             <Card.Content>
-                <Text variant="titleLarge">{item.strLeagueAlternate}</Text>
-                <Text variant="bodyMedium">{item.strLeague}</Text>
+                <Text variant="titleLarge">{item.strLeague}</Text>
+                <Text variant="bodyMedium">{item.strLeagueAlternate}</Text>
             </Card.Content>
             <Card style={{ margin: 10 }} onPress={() => navigation.push('liga-temporadas', { id: item.id })}>
                 <Card.Title

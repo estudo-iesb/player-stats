@@ -39,17 +39,8 @@ export default function App() {
               }}
             />
 
-            <Tab.Screen
-              name="Ligas"
-              component={LigaStack}
-              options={{
-                tabBarIcon: () => (
-                  <MaterialCommunityIcons name="trophy" size={26} />
-                ),
-              }}
-            />
              <Tab.Screen
-              name="Países"
+              name="Ligas/Países"
               component={PaisStack}
               options={{
                 tabBarIcon: () => (

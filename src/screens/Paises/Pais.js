@@ -34,6 +34,7 @@ const Pais = ({ navigation }) => {
     return (
         <>
             <Searchbar
+                style={{margin: 10}}
                 placeholder="Pesquisar Países"
                 onChangeText={(text) => setSearchText(text)}
                 value={searchText}
