@@ -1,16 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import { Linking, ScrollView, StyleSheet, View } from 'react-native'
+import { Button, Linking, ScrollView, StyleSheet, View } from 'react-native'
 import { Avatar, IconButton, Text } from 'react-native-paper'
 import apiTheSports from '../../services/apiTheSports'
 import ItemCarousel from '../../components/ItemCarousel';
 import Carousel from 'react-native-snap-carousel-v4';
 import formatURL from '../../utils/FormatURL';
+import jsPDF from 'jspdf';
+
 
 
 const JogadorProfile = ({ route }) => {
 
     const [jogador, setJogador] = useState({})
     const [marco, setMarco] = useState([])
+
+    const exportToPDF = () => {
+        const doc = new jsPDF();
+        const img = new Image();
+        
+        // URL da imagem do jogador
+        const avatarURL = jogador.strThumb;
+    
+        img.onload = function() {
+            // Adiciona a imagem ao PDF
+            doc.addImage(this, 'JPEG', 20, 20, 50, 50); // Ajuste as coordenadas e o tamanho conforme necessário
+    
+            doc.setFontSize(16);
+            doc.text(`Nome: ${jogador.strPlayer}`, 80, 40);
+            doc.text(`Redes Sociais:`, 20, 80);
+            doc.text(`- Twitter: ${formatURL(jogador.strTwitter)}`, 30, 95);
+            doc.text(`- Instagram: ${formatURL(jogador.strInstagram)}`, 30, 110);
+            doc.text(`- Facebook: ${formatURL(jogador.strFacebook)}`, 30, 125);
+            doc.text(`Marcos de Carreira:`, 20, 145);
+            marco.forEach((item, index) => {
+                doc.text(`- ${item.name} - ${item.date}`, 30, 160 + index * 15);
+            });
+    
+            doc.save('jogador_profile.pdf');
+        };
+    
+        // Define a origem da imagem
+        img.crossOrigin = 'Anonymous';
+        img.src = jogador.strThumb;
+    };
+
 
     useEffect(() => {
         const id = route.params.id
@@ -19,6 +52,7 @@ const JogadorProfile = ({ route }) => {
             setJogador(resultado.data.players[0])
         })
     }, [])
+
 
 
     useEffect(() => {
@@ -38,6 +72,7 @@ const JogadorProfile = ({ route }) => {
             <View style={styles.header}>
 
             </View>
+
             <Avatar.Image
                 style={styles.avatar}
                 size={190}
@@ -65,6 +100,15 @@ const JogadorProfile = ({ route }) => {
                     size={44}
                     onPress={() => Linking.openURL(formatURL(jogador.strFacebook))} // Abre o perfil do jogador no Facebook
                 />
+
+
+                <IconButton
+                    icon="export-variant"
+                    iconColor="#1877F2"
+                    size={44}
+                    title="Exportar para PDF" onPress={exportToPDF}
+                />
+
             </View>
 
             <View style={styles.infoContainer}>
@@ -76,7 +120,6 @@ const JogadorProfile = ({ route }) => {
                     sliderWidth={380}
                     itemWidth={310}
                 />
-
             </View>
 
         </ScrollView>
