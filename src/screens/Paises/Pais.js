@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, ScrollView } from 'react-native';
+import { FlatList, ScrollView, View } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import apiTheSports from '../../services/apiTheSports';
 import ItemPais from '../../components/ItemPais';
@@ -32,7 +32,7 @@ const Pais = ({ navigation }) => {
     }, [searchText]);
 
     return (
-        <ScrollView style={{backgroundColor: '#008B8B'}}>
+        <>
             <Searchbar
                 style={{margin: 10, borderWidth: 1}}
                 placeholder="Pesquisar Países"
@@ -40,11 +40,12 @@ const Pais = ({ navigation }) => {
                 value={searchText}
             />
             <FlatList
+                style={{backgroundColor: '#008B8B'}}
                 data={paises}
                 renderItem={({ item }) => <ItemPais item={item} navigation={navigation} />}
                 keyExtractor={(item) => item.name_en}
             />
-        </ScrollView>
+        </>
     );
 };
 
