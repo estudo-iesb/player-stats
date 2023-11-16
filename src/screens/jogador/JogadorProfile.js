@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { Linking, ScrollView, StyleSheet, View } from 'react-native'
-import { Avatar, IconButton, Text } from 'react-native-paper'
+import { FlatList, Linking, ScrollView, StyleSheet, View } from 'react-native'
+import { Avatar, Divider, IconButton, List, Text } from 'react-native-paper'
 import apiTheSports from '../../services/apiTheSports'
 import ItemCarousel from '../../components/ItemCarousel';
 import Carousel from 'react-native-snap-carousel-v4';
 import formatURL from '../../utils/FormatURL';
+import ItemHonras from '../../components/ItemHonras';
 
 
 const JogadorProfile = ({ route }) => {
 
     const [jogador, setJogador] = useState({})
     const [marco, setMarco] = useState([])
+    const [honra, setHonras] = useState([])
 
     useEffect(() => {
         const id = route.params.id
@@ -18,19 +20,15 @@ const JogadorProfile = ({ route }) => {
         apiTheSports.get(`/3/lookupplayer.php?id=${id}`).then(resultado => {
             setJogador(resultado.data.players[0])
         })
-    }, [])
-
-
-    useEffect(() => {
-        const id = route.params.id
 
         apiTheSports.get(`/3/lookupmilestones.php?id=${id}`).then(resultado => {
             setMarco(resultado.data.milestones)
         })
+
+        apiTheSports.get(`/3/lookuphonours.php?id=${id}`).then(resultado => {
+            setHonras(resultado.data.honours)
+        })
     }, [])
-
-
-
 
 
     return (
@@ -76,8 +74,18 @@ const JogadorProfile = ({ route }) => {
                     sliderWidth={380}
                     itemWidth={310}
                 />
-
             </View>
+
+            <View>
+                <FlatList
+                    data={honra} 
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => <ItemHonras data={item} />}
+                />
+            </View>
+
+
+            <ItemHonras data={honra} />
 
         </ScrollView>
     );
