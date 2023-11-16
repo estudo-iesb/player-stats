@@ -32,7 +32,7 @@ const Pais = ({ navigation }) => {
     }, [searchText]);
 
     return (
-        <ScrollView style={{backgroundColor: '#008B8B'}}>
+        <>
             <Searchbar
                 style={{margin: 10, borderWidth: 1}}
                 placeholder="Pesquisar Países"
@@ -44,7 +44,7 @@ const Pais = ({ navigation }) => {
                 renderItem={({ item }) => <ItemPais item={item} navigation={navigation} />}
                 keyExtractor={(item) => item.name_en}
             />
-        </ScrollView>
+        </>
     );
 };
 
