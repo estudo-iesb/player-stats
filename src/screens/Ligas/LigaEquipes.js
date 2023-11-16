@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Card, Text } from 'react-native-paper';
+import { Avatar, Card, Text, Portal, Modal, Button } from 'react-native-paper';
 import apiTheSports from '../../services/apiTheSports';
-import { ScrollView } from 'react-native';
+import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 
 const LigaEquipes = ({ navigation, route }) => {
   const [equipe, setEquipe] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState(null);
 
   useEffect(() => {
     const id = route.params.id;
@@ -13,30 +14,114 @@ const LigaEquipes = ({ navigation, route }) => {
         if (resultado.data && Array.isArray(resultado.data.teams)) {
           setEquipe(resultado.data.teams);
         } else {
-          // Caso a resposta da API não seja uma matriz de equipes
           setEquipe([]);
         }
       })
       .catch((error) => {
         console.error('Erro na solicitação à API:', error);
-        // Você pode lidar com o erro de outra forma, como exibindo uma mensagem de erro.
       });
   }, [route.params.id]);
 
+  const openTeamDetails = (team) => {
+    setSelectedTeam(team);
+  };
+
+  const closeTeamDetails = () => {
+    setSelectedTeam(null);
+  };
+
+  // Divide os times em pares
+  const teamsInPairs = [];
+  for (let i = 0; i < equipe.length; i += 2) {
+    teamsInPairs.push(equipe.slice(i, i + 2));
+  }
+
   return (
     <ScrollView>
-      {equipe.map((item) => (
-        <Card key={item.idTeam} style={{ borderWidth: 1, marginTop: 5, marginBottom: 5, marginLeft: 10, marginRight: 10 }}>
-          <Card.Title
-            title={item.strTeam}
-            subtitle={item.dateTeamFounded}
-            left={(props) => <Avatar.Image {...props} source={{ uri: item.strTeamBadge }} />}
-            // Você pode adicionar a lógica para o ícone aqui
-          />
-        </Card>
+      {teamsInPairs.map((pair, index) => (
+        <View key={index} style={styles.teamRow}>
+          {pair.map((item) => (
+            <View key={item.idTeam} style={styles.teamContainer}>
+              <TouchableOpacity onPress={() => openTeamDetails(item)}>
+                <View style={styles.circle}>
+                  <Avatar.Image
+                    source={{ uri: item.strTeamBadge }}
+                    size={100}
+                  />
+                </View>
+              </TouchableOpacity>
+              <Text>{item.strTeam}</Text>
+            </View>
+          ))}
+        </View>
       ))}
+
+      <Portal>
+        <Modal visible={selectedTeam !== null} onDismiss={closeTeamDetails}>
+          <ScrollView contentContainerStyle={styles.modalContent}>
+            <Card>
+              <Card.Title title={selectedTeam?.strTeam} />
+              <Card.Content>
+                <Text>ID: {selectedTeam?.idTeam}</Text>
+                <Text>Data de Fundação: {selectedTeam?.intFormedYear}</Text>
+                <Text>Estádio: {selectedTeam?.strStadium}</Text>
+                <Image
+                  source={{ uri: selectedTeam?.strStadiumThumb }}
+                  style={styles.stadiumImage}
+                />
+                <Text>Uniforme</Text>
+                <Image
+                  source={{ uri: selectedTeam?.strTeamJersey }}
+                  style={styles.uniformImage}
+                />
+                <Text>{selectedTeam?.strDescriptionPT}</Text>
+              </Card.Content>
+              <Card.Actions>
+                <Button onPress={closeTeamDetails}>Fechar</Button>
+              </Card.Actions>
+            </Card>
+          </ScrollView>
+        </Modal>
+      </Portal>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  teamRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  teamContainer: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  circle: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: 'lightgray',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalContent: {
+    padding: 16,
+  },
+  stadiumImage: {
+    width: '100%',
+    height: 200, // Ajuste conforme necessário
+    resizeMode: 'cover',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  uniformImage: {
+    width: '100%',
+    height: 300, // Ajuste conforme necessário
+    resizeMode: 'cover',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});
 
 export default LigaEquipes;

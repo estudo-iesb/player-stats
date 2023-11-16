@@ -6,27 +6,28 @@ import { ActivityIndicator } from 'react-native-paper';
 
 const Liga = ({ route, navigation }) => {
   const { countryName } = route.params;
-  const [liga, setLiga] = useState([]);
+  const [ligas, setLigas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     apiTheSports.get(`/3/search_all_leagues.php?c=${countryName}&s=Soccer`).then((resultado) => {
       // Filtra as ligas para incluir apenas aquelas com strSport igual a "Soccer" (Futebol)
       const ligasDeFutebol = resultado.data.countries || []; // Inicializa com um array vazio se não houver ligas
-      setLiga(ligasDeFutebol);
+      setLigas(ligasDeFutebol);
       setIsLoading(false);
     });
   }, [countryName]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#008B8B'}}>
+    <View style={{ flex: 1, backgroundColor: '#008B8B' }}>
       {isLoading ? (
         <ActivityIndicator size="large" color="#00FA9A" />
-      ) : liga.length > 0 ? (
+      ) : ligas.length > 0 ? (
         <FlatList
-          data={liga}
-          renderItem={({ item }) => <ItemLigas item={item} navigation={navigation} />}
+          data={ligas}
+          renderItem={({ item }) => <ItemLigas data={item} navigation={navigation} />}
           keyExtractor={(item) => item.idLeague}
+          numColumns={2} // Renderiza 2 ligas por linha
         />
       ) : (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
