@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     infoContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        marginVertical:5
     },
     infoText: {
         fontSize: 16,

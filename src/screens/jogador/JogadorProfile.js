@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Linking, ScrollView, StyleSheet, View } from 'react-native'
-import { Avatar, Divider, IconButton, List, Text } from 'react-native-paper'
+import { Linking, ScrollView, StyleSheet, View } from 'react-native'
+import { Avatar, IconButton, Text } from 'react-native-paper'
 import apiTheSports from '../../services/apiTheSports'
 import ItemCarousel from '../../components/ItemCarousel';
 import Carousel from 'react-native-snap-carousel-v4';
 import formatURL from '../../utils/FormatURL';
 import ItemHonras from '../../components/ItemHonras';
+import ordenaHonra from '../../utils/OrdenaHonra';
 
 
 const JogadorProfile = ({ route }) => {
 
     const [jogador, setJogador] = useState({})
     const [marco, setMarco] = useState([])
-    const [honra, setHonras] = useState([])
+    const [honra, setHonra] = useState([])
 
     useEffect(() => {
         const id = route.params.id
@@ -26,8 +27,10 @@ const JogadorProfile = ({ route }) => {
         })
 
         apiTheSports.get(`/3/lookuphonours.php?id=${id}`).then(resultado => {
-            setHonras(resultado.data.honours)
+            let ordenar = ordenaHonra(resultado.data.honours);
+            setHonra(ordenar)  
         })
+
     }, [])
 
 
@@ -76,17 +79,17 @@ const JogadorProfile = ({ route }) => {
                 />
             </View>
 
-            <View>
-                <FlatList
-                    data={honra} 
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <ItemHonras data={item} />}
-                />
+            <View style={styles.infoContainer}>
+            <Text style={styles.titleText} variant="headlineMedium">Honras da Carreira</Text>
+                <Carousel
+                    data={honra}
+                    renderItem={ItemHonras}
+                    sliderWidth={380}
+                    itemWidth={310}
+                    layout={'default'}
+                    layoutCardOffset={18}
+                />   
             </View>
-
-
-            <ItemHonras data={honra} />
-
         </ScrollView>
     );
 };

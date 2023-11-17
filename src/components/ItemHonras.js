@@ -1,23 +1,29 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {StyleSheet } from 'react-native';
+import { Card, Title, Paragraph } from 'react-native-paper';
 
-const ItemHonras = ({ data }) => {
+const ItemHonras = ({item}) => {
   // Desestruture o objeto 'data' para acessar os campos desejados
-  const { strHonour, strSeason, strSport, strTeam } = data;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{strHonour}</Text>
-      <Text style={styles.subtitle}>Temporada: {strSeason}</Text>
-      <Text style={styles.subtitle}>Esporte: {strSport}</Text>
-      <Text style={styles.subtitle}>Time: {strTeam}</Text>
-    </View>
+    <Card style={styles.container}>
+      <Card.Content>
+        <Title>{item.strHonour}</Title>
+        <Paragraph>Temporada: {item.strSeason}</Paragraph>
+        <Paragraph>Time: {item.strTeam}</Paragraph>
+      </Card.Content>
+    </Card>
+
+
+
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 10,
+    marginTop: 15,
+    marginHorizontal: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
