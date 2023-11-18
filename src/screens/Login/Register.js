@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
 const Register = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -10,6 +11,9 @@ const Register = ({ navigation }) => {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const deviceName = Constants.deviceName;
+
 
   useEffect(() => {
     checkUsernameExists();
@@ -43,22 +47,27 @@ const Register = ({ navigation }) => {
       try {
         const storedUsers = await AsyncStorage.getItem('users');
         const users = storedUsers ? JSON.parse(storedUsers) : [];
-
+  
         const usernameExists = users.some((user) => user.username === username);
-
+  
         if (usernameExists) {
           setUsernameExists(true);
           return;
         }
-
-        users.push({ username, password });
+  
+        const newUser = { username, password, deviceName };
+  
+        // Adicione o novo usuário ao array
+        users.push(newUser);
+  
+        // Atualize o AsyncStorage com a lista atualizada de usuários
         await AsyncStorage.setItem('users', JSON.stringify(users));
-
-        await AsyncStorage.setItem('username', username);
-        await AsyncStorage.setItem('password', password);
-
+  
+        // Armazene todas as informações do usuário de uma vez
+        await AsyncStorage.setItem('userDetails', JSON.stringify(newUser));
+  
         console.log('Cadastro salvo com sucesso!');
-
+  
         setShowSuccessMessage(true);
         setTimeout(() => {
           setShowSuccessMessage(false);
@@ -72,6 +81,7 @@ const Register = ({ navigation }) => {
       console.log('Senhas não coincidem. Verifique e tente novamente.');
     }
   };
+  
 
   return (
     <View style={styles.container}>
