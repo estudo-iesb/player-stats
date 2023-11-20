@@ -27,18 +27,23 @@ const Login = ({ handleLogin }) => {
     try {
       const isBiometricAvailable = await LocalAuthentication.hasHardwareAsync();
       const areEnrolled = await LocalAuthentication.isEnrolledAsync();
-
+  
       if (isBiometricAvailable && areEnrolled) {
         const result = await LocalAuthentication.authenticateAsync({
           promptMessage: 'Autenticar usando biometria',
         });
-
+  
         if (result.success) {
           console.log('Autenticação por biometria bem-sucedida');
-          
-          
 
-
+          const storedUsername = await AsyncStorage.getItem('username');
+          const storedPassword = await AsyncStorage.getItem('password');
+          const loginSuccess = await handleLogin(storedUsername, storedPassword);
+  
+            if (!loginSuccess) {
+              setShowError(true);
+            }
+            
         } else {
           console.log('Falha na autenticação por biometria');
         }
