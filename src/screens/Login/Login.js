@@ -17,7 +17,7 @@ const Login = ({ handleLogin }) => {
 
   const handleLoginPress = async () => {
     const loginSuccess = await handleLogin(username, password);
-
+  
     if (!loginSuccess) {
       setShowError(true);
     }
@@ -35,15 +35,22 @@ const Login = ({ handleLogin }) => {
   
         if (result.success) {
           console.log('Autenticação por biometria bem-sucedida');
-
-          const storedUsername = await AsyncStorage.getItem('username');
-          const storedPassword = await AsyncStorage.getItem('password');
-          const loginSuccess = await handleLogin(storedUsername, storedPassword);
-  
+    
+          const storedUsers = await AsyncStorage.getItem('users');
+          const users = storedUsers ? JSON.parse(storedUsers) : [];
+    
+          // Obtém o usuário correspondente à biometria
+          const biometricUser = users.find((user) => user.deviceName === Constants.deviceName);
+    
+          if (biometricUser) {
+            const loginSuccess = await handleLogin(biometricUser.username, biometricUser.password);
+    
             if (!loginSuccess) {
               setShowError(true);
             }
-            
+          } else {
+            console.log('Usuário associado à biometria não encontrado.');
+          }
         } else {
           console.log('Falha na autenticação por biometria');
         }

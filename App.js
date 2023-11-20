@@ -24,19 +24,24 @@ export default function App() {
   const handleLogin = async (username, password) => {
     try {
       // Recupera os dados do usuário do armazenamento local
-      const storedUsername = await AsyncStorage.getItem('username');
-      const storedPassword = await AsyncStorage.getItem('password');
-
+      const storedUsers = await AsyncStorage.getItem('users');
+      const users = storedUsers ? JSON.parse(storedUsers) : [];
+  
       // Verifica se os dados coincidem
-      if (username === storedUsername && password === storedPassword) {
+      const userMatch = users.find(user => user.username === username && user.password === password);
+  
+      if (userMatch) {
         // Login bem-sucedido
         setLoggedIn(true);
+        return true;
       } else {
         // Credenciais inválidas
         console.log('Credenciais inválidas. Verifique seu nome de usuário e senha.');
+        return false;
       }
     } catch (error) {
       console.error('Erro ao realizar o login:', error);
+      return false;
     }
   };
 
