@@ -11,9 +11,42 @@ const LigaStack = props => {
     return (
         <>
             <Stack.Navigator>
-                <Stack.Screen name="liga" component={Liga} options={{ title: 'Ligas' }} />
-                <Stack.Screen name="liga-temporadas" component={LigaTemporadas} options={{ title: 'Temporadas' }} />
-                <Stack.Screen name="liga-equipes" component={LigaEquipes} options={{ title: 'Equipes' }} />
+                <Stack.Screen 
+                name="liga" 
+                component={Liga} 
+                options={{ 
+                    title: 'Ligas',
+                    headerStyle: {
+                        backgroundColor: '#004080', 
+                      },
+                      headerTitleStyle: {
+                        color: 'white', 
+                      },
+                    }} />
+                <Stack.Screen 
+                name="liga-temporadas" 
+                component={LigaTemporadas} 
+                options={{ 
+                    title: 'Temporadas',
+                    headerStyle: {
+                        backgroundColor: '#004080', 
+                      },
+                      headerTitleStyle: {
+                        color: 'white', 
+                      },
+                    }} />
+                <Stack.Screen 
+                name="liga-equipes" 
+                component={LigaEquipes} 
+                options={{ 
+                    title: 'Equipes',
+                    headerStyle: {
+                        backgroundColor: '#004080', 
+                      },
+                      headerTitleStyle: {
+                        color: 'white', 
+                      },
+                    }} />
             </Stack.Navigator>
         </>
     )

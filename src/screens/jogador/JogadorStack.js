@@ -10,8 +10,30 @@ const JogadorStack = () => {
     return (
         <>
             <Stack.Navigator>
-                <Stack.Screen name="JogadorSearch" component={JogadorSearch} options={{ title: 'Pesquisar Jogador' }} />
-                <Stack.Screen name='JogadorProfile' component={JogadorProfile} options={{title: 'Perfil jogador'}}/>
+                <Stack.Screen 
+                name="JogadorSearch" 
+                component={JogadorSearch} 
+                options={{ 
+                    title: 'Pesquisar Jogador',
+                    headerStyle: {
+                        backgroundColor: '#004080', 
+                      },
+                      headerTitleStyle: {
+                        color: 'white', 
+                      },
+                    }} />
+                <Stack.Screen 
+                name='JogadorProfile' 
+                component={JogadorProfile} 
+                options={{
+                    title: 'Perfil jogador',
+                    headerStyle: {
+                        backgroundColor: '#004080', 
+                      },
+                      headerTitleStyle: {
+                        color: 'white', 
+                      },
+                    }}/>
             </Stack.Navigator>
         </>
     )

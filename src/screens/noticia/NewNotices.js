@@ -3,18 +3,20 @@ import { View, Text, StyleSheet, FlatList, Dimensions, TouchableOpacity } from '
 import YouTube from 'react-native-youtube-iframe';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Card } from 'react-native-paper';
+import CardStyles from '../../styles/Cardstyles';
 
 const NewNotices = () => {
   const footballVideoIds = [
-    'gSuzx1mAOms',
     'thJ0sUR_sWg',
+    'gSuzx1mAOms',
     'jIMY1giCsDU',
     'GU5jderTllw',
     '74nC3oo6ngk',
     'z7PyXQuKM5U',
     // Adicione mais IDs de vídeo conforme necessário
   ];
-
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [newsData, setNewsData] = useState([]);
   const playerRef = useRef();
@@ -72,12 +74,19 @@ const NewNotices = () => {
     </View>
   );
 
-  const renderNewsItem = ({ item, index }) => (
-    <View style={styles.newsContainer}>
-      <Text style={styles.newsTitle}>{item.title}</Text>
-      <Text style={styles.newsContent}>{item.description}</Text>
-    </View>
-  );
+  const renderNewsItem = ({ item, index }) => {
+    return (
+      <Card style={[CardStyles.card, styles.newsContainer]}>
+        <Card.Title
+          title={item.author}
+          titleStyle={[styles.authorText, styles.authorTitle]} // Adicione este estilo para ajustar o alinhamento
+        />
+        <Text style={styles.newsTitle}>{item.title}</Text>
+        <Text style={styles.newsContent}>{item.description}</Text>
+      </Card>
+    );
+  };
+
 
   return (
     <View style={styles.container}>
@@ -97,11 +106,11 @@ const NewNotices = () => {
 
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={handlePrev} style={styles.navigationButton}>
-          <Icon name="chevron-left" size={30} />
+          <Icon name="chevron-left" size={24} style={styles.navigationIcon} />
         </TouchableOpacity>
         <Text style={styles.navigationText}>{currentIndex + 1} de {footballVideoIds.length}</Text>
         <TouchableOpacity onPress={handleNext} style={styles.navigationButton}>
-          <Icon name="chevron-right" size={30} />
+          <Icon name="chevron-right" size={24} style={styles.navigationIcon} />
         </TouchableOpacity>
       </View>
 
@@ -120,6 +129,17 @@ const NewNotices = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  authorText: {
+
+    color: '#004080',
+    fontWeight: 'bold',
+  },
+
+  authorTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: -10,
   },
   videoContainer: {
     width: Dimensions.get('window').width,
@@ -156,10 +176,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  navigationIcon: {
+    color: 'blue', // cor desejada
+  },
   navigationText: {
     fontSize: 18,
   },
   newsHeading: {
+    backgroundColor: '#C8DCFA',
     alignSelf: 'center',
     margin: 10,
     padding: 10,

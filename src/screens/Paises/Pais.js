@@ -13,9 +13,9 @@ const Pais = ({ navigation }) => {
             const response = await apiTheSports.get('/3/all_countries.php');
             const allCountries = response.data.countries;
 
-            // Filtra os países com base no searchText
+            
             const filteredCountries = allCountries.filter((country) => {
-                // Transforma o nome do país e o termo de pesquisa em letras minúsculas para evitar problemas de maiúsculas/minúsculas
+                
                 const countryName = country.name_en.toLowerCase();
                 const searchTerm = searchText.toLowerCase();
                 return countryName.includes(searchTerm);
