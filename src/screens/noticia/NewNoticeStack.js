@@ -12,14 +12,7 @@ const NewNoticeStack = () => {
           name="NewNotices"
           component={NewNotices}
           options={{
-            title: 'Notícias',
-            headerStyle: {
-              backgroundColor: '#3498db', // Defina a cor de fundo desejada
-            },
-            headerTintColor: '#fff', // Defina a cor do texto do cabeçalho
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
+            title: 'Notícias'
           }}
         />
       </Stack.Navigator>

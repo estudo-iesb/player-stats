@@ -73,7 +73,7 @@ const NewNotices = () => {
   );
 
   const renderNewsItem = ({ item, index }) => (
-    <View style={[styles.newsContainer, { backgroundColor: index % 2 === 0 ? '#DCDCDC' : '#A9A9A9' }]}>
+    <View style={styles.newsContainer}>
       <Text style={styles.newsTitle}>{item.title}</Text>
       <Text style={styles.newsContent}>{item.description}</Text>
     </View>
@@ -97,11 +97,11 @@ const NewNotices = () => {
 
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={handlePrev} style={styles.navigationButton}>
-          <Icon name="chevron-left" size={30} color="white" />
+          <Icon name="chevron-left" size={30} />
         </TouchableOpacity>
         <Text style={styles.navigationText}>{currentIndex + 1} de {footballVideoIds.length}</Text>
         <TouchableOpacity onPress={handleNext} style={styles.navigationButton}>
-          <Icon name="chevron-right" size={30} color="white" />
+          <Icon name="chevron-right" size={30} />
         </TouchableOpacity>
       </View>
 
@@ -120,7 +120,6 @@ const NewNotices = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#708090', // Cor de fundo suave
   },
   videoContainer: {
     width: Dimensions.get('window').width,
@@ -128,10 +127,8 @@ const styles = StyleSheet.create({
   },
   newsContainer: {
     padding: 20,
-    backgroundColor: '#fff',
     marginBottom: 10,
     borderRadius: 10,
-    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -144,11 +141,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#333', // Cor do texto mais escura
   },
   newsContent: {
     fontSize: 16,
-    color: '#666', // Cor do texto mais clara
   },
   navigationContainer: {
     flexDirection: 'row',
@@ -158,26 +153,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   navigationButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.2)', // Cor de fundo com transparência
     padding: 10,
     borderRadius: 5,
   },
   navigationText: {
-    color: '#333',
     fontSize: 18,
   },
   newsHeading: {
     alignSelf: 'center',
     margin: 10,
-    backgroundColor: '#363636',
     padding: 10,
     borderRadius: 7,
-    color: 'white', // Cor do texto
   },
   newsList: {
     margin: 10,
     marginTop: 0,
-    
     borderColor: '#ddd',
     borderRadius: 10,
   },

@@ -40,7 +40,6 @@ const Pais = ({ navigation }) => {
                 value={searchText}
             />
             <FlatList
-                style={{backgroundColor: '#008B8B'}}
                 data={paises}
                 renderItem={({ item }) => <ItemPais item={item} navigation={navigation} />}
                 keyExtractor={(item) => item.name_en}

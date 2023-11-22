@@ -19,7 +19,7 @@ const Liga = ({ route, navigation }) => {
   }, [countryName]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#008B8B' }}>
+    <View >
       {isLoading ? (
         <ActivityIndicator size="large" color="#00FA9A" />
       ) : ligas.length > 0 ? (

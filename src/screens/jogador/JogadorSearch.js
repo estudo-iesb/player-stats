@@ -3,6 +3,7 @@ import { Avatar, Card, IconButton, Searchbar } from 'react-native-paper'
 import apiTheSports from '../../services/apiTheSports'
 import { ScrollView } from 'react-native'
 
+import CardStyles from '../../styles/Cardstyles'
 
 const JogadorSearch = ({ navigation }) => {
   const [jogadores, setJogadores] = useState([])
@@ -29,11 +30,12 @@ const JogadorSearch = ({ navigation }) => {
         placeholder="Pesquisar Jogadores"
         onChangeText={(text) => setSearchText(text)}
         value={searchText}
+        style={{margin: 10, borderWidth: 1}}
       />
 
       <ScrollView>
         {jogadores.map(item => (
-          <Card key={item.idPlayer}>
+          <Card key={item.idPlayer} style={CardStyles.card}>
             <Card.Title
               title={item.strPlayer}
               subtitle={item.strTeam}

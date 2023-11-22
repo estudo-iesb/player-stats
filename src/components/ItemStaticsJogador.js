@@ -6,6 +6,7 @@ import apiSocialSearch from '../services/apiSocialSearch';
 const ItemStaticsJogador = ({ jogador }) => {
     const colorScale = ["#00cc00", "#ffff00", "#ff0000"];
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,6 +26,7 @@ const ItemStaticsJogador = ({ jogador }) => {
     
                 // Definir o estado com os resultados concatenados
                 setPosts(concatenatedPosts);
+                setLoading(false); // Marcar como carregado
             } catch (error) {
                 console.error("Erro ao buscar dados das redes sociais", error);
             }
@@ -64,6 +66,16 @@ const ItemStaticsJogador = ({ jogador }) => {
     };
 
     const contagensSentimentos = contarSentimentos();
+
+    if (loading) {
+        // Renderizar indicador de carregamento ou esqueleto do gráfico
+        return (
+            <View>
+                <Text>Carregando...</Text>
+                {/* Você pode adicionar um esqueleto de gráfico aqui */}
+            </View>
+        );
+    }
 
     return (
         <View>

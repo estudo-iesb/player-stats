@@ -16,7 +16,7 @@ const ItemLigas = ({ data, navigation }) => {
 const styles = StyleSheet.create({
   square: {
     margin: 2,
-    backgroundColor: 'white',
+    backgroundColor: '',
     width: '49%', 
     height: 150,
     borderWidth: 1,

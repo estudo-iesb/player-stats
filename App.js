@@ -17,6 +17,7 @@ import PaisStack from './src/screens/Paises/PaisStack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Register from './src/screens/Login/Register';
 
+import MyTheme from './src/theme/MyThema';
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
@@ -57,11 +58,10 @@ export default function App() {
   };
 
   return (
-    <PaperProvider>
+    <PaperProvider theme={MyTheme} >
       <NavigationContainer>
         {loggedIn ? (
           <Tab.Navigator
-            barStyle={{ backgroundColor: '#3498db' }}
             activeTintColor="white" // Define a cor do texto e ícones ativos
             inactiveTintColor="white" // Define a cor do texto e ícones inativos
           >

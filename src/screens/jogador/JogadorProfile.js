@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Linking, ScrollView, StyleSheet, View, SafeAreaView, FlatList } from 'react-native'
 import { Avatar, IconButton, Text, SegmentedButtons, ActivityIndicator, MD2Colors } from 'react-native-paper'
+import { Skeleton, VStack, HStack, Center, NativeBaseProvider } from "native-base";
+
 import apiTheSports from '../../services/apiTheSports'
 import ItemCarousel from '../../components/ItemCarousel';
 import Carousel from 'react-native-snap-carousel-v4';
@@ -107,7 +109,8 @@ const JogadorProfile = ({ route }) => {
                     />
                 </View>
                 <View>
-                    <ItemStaticsJogador jogador={jogador.strPlayer}/>
+                    <Text style={styles.titleText} variant="headlineMedium">Analise social</Text>
+                    <ItemStaticsJogador jogador={jogador.strPlayer} />
                 </View>
 
                 <SafeAreaView style={styles.container}>
@@ -146,7 +149,21 @@ const JogadorProfile = ({ route }) => {
                             )}
                         />
                     ) : (
-                        <ActivityIndicator animating={true} color={MD2Colors.red800} />
+                        <NativeBaseProvider>
+                            <VStack m={10} maxW="720" borderWidth={3} space={6} rounded="md" alignItems="center" borderColor="gray.500">
+                                <Skeleton h={40} />
+                                <Skeleton borderWidth={1} borderColor="coolGray.200" endColor="warmGray.50" size={20} rounded="full" mt={-70} />
+                                <HStack space={2}>
+                                    <Skeleton size={5} rounded="full" />
+                                    <Skeleton size={5} rounded="full" />
+                                    <Skeleton size={5} rounded="full" />
+                                    <Skeleton size={5} rounded="full" />
+                                    <Skeleton size={5} rounded="full" />
+                                </HStack>
+                                <Skeleton.Text lines={3} alignItems="center" px={12} />
+                                <Skeleton mb={3} w={40} rounded={20} />
+                            </VStack>
+                        </NativeBaseProvider>
                     )}
                 </SafeAreaView>
             </ScrollView>
@@ -189,7 +206,7 @@ const styles = StyleSheet.create({
         color: "#8b8c8b",
         fontWeight: 'bold',
         textAlign: "center",
-        margin: 10
+        margin: 5
 
     },
     iconRede: {
