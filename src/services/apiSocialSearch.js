@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiSocialSearch = axios.create({
-    baseURL: 'https://api.social-searcher.com/v2/search?key=16c66efb34ffb1bd06ee0116db97147a&'
+    baseURL: 'https://api.social-searcher.com/v2/search?key=eafb8f9238c71f590eefe3e4f0a5275c&'
 })
 
 export default apiSocialSearch

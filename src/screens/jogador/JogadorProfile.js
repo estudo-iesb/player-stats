@@ -109,7 +109,7 @@ const JogadorProfile = ({ route }) => {
                         layoutCardOffset={18}
                     />
                 </View>
-                <View>
+                <View style={styles.infoContainer}>
                     <Text style={styles.titleText} variant="headlineMedium">Analise social</Text>
                     <ItemStaticsJogador jogador={jogador.strPlayer} />
                 </View>
@@ -137,20 +137,18 @@ const JogadorProfile = ({ route }) => {
                         ]}
                     />
                     {post.length ? (
-                        <FlatList
-                            data={post}
-
-                            keyExtractor={(item) => item.postid.toString()}
-                            renderItem={({ item }) => (
+                        <View>
+                            {post.map((item) => (
                                 <ItemPost
+                                    key={item.postid.toString()} // Importante adicionar uma chave única para cada item
                                     post={item}
                                     onPressLike={() => console.log('Liked!')}
                                     onPressLink={() => Linking.openURL(item.url)}
                                 />
-                            )}
-                        />
+                            ))}
+                        </View>
                     ) : (
-                        <SkeletonPost/>
+                        <SkeletonPost />
                     )}
                 </SafeAreaView>
             </ScrollView>
