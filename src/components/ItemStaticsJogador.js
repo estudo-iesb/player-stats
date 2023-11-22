@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { VictoryBar, VictoryChart, VictoryGroup, VictoryAxis } from 'victory-native';
 import apiSocialSearch from '../services/apiSocialSearch';
+import SkeletonStatics from './Skeleton/SkeletonStatics';
 
 const ItemStaticsJogador = ({ jogador }) => {
     const colorScale = ["#00cc00", "#ffff00", "#ff0000"];
@@ -17,16 +18,14 @@ const ItemStaticsJogador = ({ jogador }) => {
     
                 const [instagramResult, facebookResult, twitterResult] = await Promise.all([instagramData, facebookData, twitterData]);
     
-                // Concatenar os resultados em uma variável
                 const concatenatedPosts = [
                     ...instagramResult.data.posts,
                     ...facebookResult.data.posts,
                     ...twitterResult.data.posts,
                 ];
     
-                // Definir o estado com os resultados concatenados
                 setPosts(concatenatedPosts);
-                setLoading(false); // Marcar como carregado
+                setLoading(false);
             } catch (error) {
                 console.error("Erro ao buscar dados das redes sociais", error);
             }
@@ -37,8 +36,7 @@ const ItemStaticsJogador = ({ jogador }) => {
 
     const contarSentimentos = () => {
         const counts = {};
-
-        // Percorre os posts e conta os sentimentos
+        
         posts.forEach(post => {
             const network = post.network;
             const sentiment = post.sentiment;
@@ -50,7 +48,6 @@ const ItemStaticsJogador = ({ jogador }) => {
             counts[network][sentiment]++;
         });
 
-        // Monta o JSON com base nas contagens
         const resultJson = [];
         for (const network in counts) {
             const countObj = counts[network];
@@ -67,38 +64,32 @@ const ItemStaticsJogador = ({ jogador }) => {
 
     const contagensSentimentos = contarSentimentos();
 
-    if (loading) {
-        // Renderizar indicador de carregamento ou esqueleto do gráfico
-        return (
-            <View>
-                <Text>Carregando...</Text>
-                {/* Você pode adicionar um esqueleto de gráfico aqui */}
-            </View>
-        );
-    }
-
     return (
         <View>
-            <VictoryChart domainPadding={{ x: 20 }}>
-                <VictoryGroup offset={20} colorScale={colorScale}>
-                    <VictoryBar
-                        data={contagensSentimentos}
-                        x="x"
-                        y="positive"
-                    />
-                    <VictoryBar
-                        data={contagensSentimentos}
-                        x="x"
-                        y="neutral"
-                    />
-                    <VictoryBar
-                        data={contagensSentimentos}
-                        x="x"
-                        y="negative"
-                    />
-                </VictoryGroup>
-                <VictoryAxis tickValues={contagensSentimentos.map(data => data.x)} />
-            </VictoryChart>
+            {posts.length ? (
+                <VictoryChart domainPadding={{ x: 20 }}>
+                    <VictoryGroup offset={20} colorScale={colorScale}>
+                        <VictoryBar
+                            data={contagensSentimentos}
+                            x="x"
+                            y="positive"
+                        />
+                        <VictoryBar
+                            data={contagensSentimentos}
+                            x="x"
+                            y="neutral"
+                        />
+                        <VictoryBar
+                            data={contagensSentimentos}
+                            x="x"
+                            y="negative"
+                        />
+                    </VictoryGroup>
+                    <VictoryAxis tickValues={contagensSentimentos.map(data => data.x)} />
+                </VictoryChart>
+            ) : (
+                <SkeletonStatics/>
+            )}
         </View>
     );
 };

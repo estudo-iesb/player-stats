@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Linking, ScrollView, StyleSheet, View, SafeAreaView, FlatList } from 'react-native'
 import { Avatar, IconButton, Text, SegmentedButtons, ActivityIndicator, MD2Colors } from 'react-native-paper'
-import { Skeleton, VStack, HStack, Center, NativeBaseProvider } from "native-base";
+
 
 import apiTheSports from '../../services/apiTheSports'
 import ItemCarousel from '../../components/ItemCarousel';
@@ -12,6 +12,7 @@ import ordenaHonra from '../../utils/OrdenaHonra';
 import apiSocialSearch from '../../services/apiSocialSearch';
 import ItemPost from '../../components/ItemPost';
 import ItemStaticsJogador from '../../components/ItemStaticsJogador';
+import SkeletonPost from '../../components/Skeleton/SkeletonPost';
 
 
 const JogadorProfile = ({ route }) => {
@@ -149,21 +150,7 @@ const JogadorProfile = ({ route }) => {
                             )}
                         />
                     ) : (
-                        <NativeBaseProvider>
-                            <VStack m={10} maxW="720" borderWidth={3} space={6} rounded="md" alignItems="center" borderColor="gray.500">
-                                <Skeleton h={40} />
-                                <Skeleton borderWidth={1} borderColor="coolGray.200" endColor="warmGray.50" size={20} rounded="full" mt={-70} />
-                                <HStack space={2}>
-                                    <Skeleton size={5} rounded="full" />
-                                    <Skeleton size={5} rounded="full" />
-                                    <Skeleton size={5} rounded="full" />
-                                    <Skeleton size={5} rounded="full" />
-                                    <Skeleton size={5} rounded="full" />
-                                </HStack>
-                                <Skeleton.Text lines={3} alignItems="center" px={12} />
-                                <Skeleton mb={3} w={40} rounded={20} />
-                            </VStack>
-                        </NativeBaseProvider>
+                        <SkeletonPost/>
                     )}
                 </SafeAreaView>
             </ScrollView>

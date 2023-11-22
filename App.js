@@ -59,7 +59,7 @@ export default function App() {
 
   return (
     <PaperProvider theme={MyTheme} >
-      <NavigationContainer>
+      <NavigationContainer >
         {loggedIn ? (
           <Tab.Navigator
             activeTintColor="white" // Define a cor do texto e ícones ativos
