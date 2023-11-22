@@ -60,7 +60,11 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         {loggedIn ? (
-          <Tab.Navigator>
+          <Tab.Navigator
+            barStyle={{ backgroundColor: '#3498db' }}
+            activeTintColor="white" // Define a cor do texto e ícones ativos
+            inactiveTintColor="white" // Define a cor do texto e ícones inativos
+          >
             {/* Suas abas aqui */}
             <Tab.Screen
               name="Notices"
@@ -69,6 +73,7 @@ export default function App() {
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="book-open-page-variant" size={26} />
                 ),
+                
               }}
             />
             <Tab.Screen
