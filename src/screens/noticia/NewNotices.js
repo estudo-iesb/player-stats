@@ -16,10 +16,11 @@ const NewNotices = () => {
     'z7PyXQuKM5U',
     // Adicione mais IDs de vídeo conforme necessário
   ];
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [newsData, setNewsData] = useState([]);
   const playerRef = useRef();
+  const flatListRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,15 +51,13 @@ const NewNotices = () => {
 
   const handlePrev = () => {
     if (currentIndex > 0) {
-      playerRef.current?.seekTo(0);
-      setCurrentIndex(currentIndex - 1);
+      flatListRef.current.scrollToIndex({ index: currentIndex - 1 });
     }
   };
 
   const handleNext = () => {
     if (currentIndex < footballVideoIds.length - 1) {
-      playerRef.current?.seekTo(0);
-      setCurrentIndex(currentIndex + 1);
+      flatListRef.current.scrollToIndex({ index: currentIndex + 1 });
     }
   };
 
@@ -79,7 +78,7 @@ const NewNotices = () => {
       <Card style={[CardStyles.card, styles.newsContainer]}>
         <Card.Title
           title={item.author}
-          titleStyle={[styles.authorText, styles.authorTitle]} // Adicione este estilo para ajustar o alinhamento
+          titleStyle={[styles.authorText, styles.authorTitle]}
         />
         <Text style={styles.newsTitle}>{item.title}</Text>
         <Text style={styles.newsContent}>{item.description}</Text>
@@ -87,15 +86,15 @@ const NewNotices = () => {
     );
   };
 
-
   return (
     <View style={styles.container}>
       <FlatList
+        ref={flatListRef}
         data={footballVideoIds}
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
         horizontal
-        pagingEnabled
+        pagingEnabled // Adicione essa propriedade
         showsHorizontalScrollIndicator={false}
         initialScrollIndex={currentIndex}
         onMomentumScrollEnd={(event) => {
@@ -131,11 +130,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   authorText: {
-
     color: '#004080',
     fontWeight: 'bold',
   },
-
   authorTitle: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -177,7 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   navigationIcon: {
-    color: 'blue', // cor desejada
+    color: 'blue',
   },
   navigationText: {
     fontSize: 18,
